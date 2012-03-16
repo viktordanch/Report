@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <title>New project</title>
+    <style>
+     body{
+     padding-top: 5%;
+     }
+     fieldset {
+      width: 340px;
+      border: ridge 2px darkgreen;
+      line-height: 1.8em;
+     }
+     #line{
+     float:right;
+     }
+     #non{
+     width: 2px;       
+     visibility: hidden ;       
+       }    
+    </style>  
+  </head>
+  <body>
+   <center>
+    
+    <h1>New Project</h1>
+    <p></p>
+    <fieldset>
+     <table>
+      <tr>
+        <form action='/saveproject' method='post'>
+        <td>title</td>
+        <td><input type='text' name='title' id="line"></td>
+      </tr>
+      <tr>
+        <td> description of business model</td>
+        <td><input type='text' name='description'  id="line"></td>
+      </tr>
+      <tr>
+        <td>platform</td>
+        <td><input type='text' name='platform'  id="line"></td>
+      </tr>
+      <tr>  
+        <td>tools</td>
+        <td><input type='text' name='tools'  id="line"></td>
+      </tr>
+     </table>   	      
+        <input type="text" name="id" value="<%= params["id"]%>" id="non">
+         <input type="text" name="date" value="<%= params["date"]%>" id="non">
+         <input type='submit' value="save project">
+         <input type="text" name="month" value="<%= params["month"]%>" id="non">
+         <input type="text" name="year" value="<%= params["year"]%>" id="non">
+        </form>
+        <form action='/enter' method='post'>
+         <input type="text" name="id" value="<%= params["id"]%>" id="non">
+         <input type="text" name="date" value="<%= params["date"]%>" id="non">
+          <input type="submit" value="Came back">
+         <input type="text" name="month" value="<%= params["month"]%>" id="non">
+         <input type="text" name="year" value="<%= params["year"]%>" id="non">
+         
+        </form>
+    </fildset> 
+   </center>  
+  </body>
+</html>

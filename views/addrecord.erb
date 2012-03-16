@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+    <title>Add record</title>
+    <style>
+        body{
+      padding-top: 10%;
+       padding-left: 10%;
+       padding-right: 10%;
+       }
+       fieldset table  tbody tr td{
+       width: 230px;
+       height: 20px;
+       }
+       #inputsize{
+       width: 225px;
+       height: 18px;
+       }
+       fieldset {
+         width: 1000px;
+         border: ridge 2px darkgreen;        
+       }
+       #right{
+       float: right;
+       }
+       #time{
+       float: right;
+       }
+       #time tr td{
+       width: 60px;
+       height: 20px;
+       }
+       #time tr td input {
+       width: 30px;
+       height: 15px;
+       }
+       #non{
+       width: 2px;
+       height: 2px;
+       visibility: hidden;
+       }
+       #select{
+       width: 210px;
+       }
+       #timecol{
+       width: 80px;
+       }
+       #timecol input{
+       width: 78px;
+       }
+       #save{
+       width: 80px;
+       float: right;
+       }
+    </style>
+  </head>
+  <body>
+  <fieldset>
+  <form action="/saverecord" method="post" accept-charset="utf-8">
+  <input type="text" name="id" value="<%= params["id"]%>" id="non">
+  <table >
+   <tr>
+    <td>  
+    <p></p>
+   <table border="1">
+     <thead>
+       <tr>
+         <th>Project</th>
+         <th>Activity</th>
+         <th>Time name</th>
+         <th id="timecol">Time </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td><select name="project" id="select" > <% 
+           project=Project.find(:all)
+           project.each do |li| %>                       
+             <option value=<%=li.title%>><%=li.title%></option>
+             <% end  %>         
+          </select></td>
+          <td><input type="text" name="activity" value="" id="inputsize"></td>
+          <td><select name="timename">
+          <option value="self">self-development</option>
+          <option value="work">working time</option>
+          <option value="extra">extra time</option>
+          <option value="team">team work</option>            
+          ></td>
+          <td id="timecol"><input type="text" name="timework" value=""></td>
+      </tr>
+      </tbody>     
+   </table> 
+   </td> 
+   <td>
+    <table   >
+    <tr><td>
+    <table id="time"  >
+      <tr>
+          <td>Date </td>
+          <td>Month</td>
+          <td id="time">Year</td>
+      </tr>
+      <tr>
+          <td><select name="date"> <% n=1 %>
+          <option value=<%= Date.today.strftime('%d') %>><%= Date.today.strftime('%d') %> </option>
+            <%while !(n==31)  
+             if n<10
+             n="0"+n.to_s
+             end%>
+            <option value=<%= n %>><%= n %></option>
+             <% n=n.to_i+1 
+             end  %>         
+          </select></td>
+          <td><select name="month"> <% n=1 %>
+          <option value=<%= Date.today.strftime('%m') %>><%= Date.today.strftime('%m') %> </option>
+          <%while !(n==13) 
+             if n<10
+             n="0"+n.to_s
+             end%>
+            <option value=<%= n %>><%= n %></option>
+             <% n=n.to_i+1 
+             end  %>         
+          </select> </td>
+          <td><select name="year"> <% n=2006 %>
+          <option value=<%= Date.today.strftime('%Y') %>><%= Date.today.strftime('%Y') %> </option>
+            <%while !(n==2013) %>
+            <option value=<%= n %>><%= n %></option>
+             <% n+=1 
+             end %>         
+          </select> </td>
+       </tr>           
+    </table> 
+    </td></tr>
+    <tr><td >
+    <input type="submit" value="Save" id="save"> 
+    </td></tr>
+    </table>     
+    </td>
+    </tr>
+    </table>
+  
+      
+      
+     </form>
+     <form action='/enter' method='post'>
+     <input type="text" name="id" value="<%= params["id"]%>" id="non">
+     <input type="text" name="date" value="<%= params["date"]%>" id="non">
+     <input type="text" name="month" value="<%= params["month"]%>" id="non">
+     <input type="text" name="year" value="<%= params["year"]%>" id="non">
+     <input type="submit" value="Came back" id="right"> 
+     </form>    
+    </fieldset>
+  
+  </body>
+</html>     

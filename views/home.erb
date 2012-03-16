@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+ <head>
+   <title>Enter</title>
+  <style>
+      body{
+      padding-top: 5%;
+      }
+      #line {
+       width: 150px;
+      
+       float: right;
+       }
+       fieldset {
+         width: 340px;
+         border: ridge 2px darkgreen;
+         line-height: 1.8em;
+       }
+     </style>
+ </head>  
+ <body>
+  <center>
+
+    <p></p>
+     <fieldset>
+     <form action="/verification" method="post" accept-charset="utf-8">
+       <p></p>
+       Paste a login:
+       <input type="text" name="login" value="login" id="line">
+        <p></p>
+       Paste a password:
+       <input type="password" name="password" value="" id="line">
+       
+       <p></p>
+       <input type="submit" value="Enter">
+    </form>
+   
+  
+    </fieldset>
+   </center>
+  </body>
+</html>

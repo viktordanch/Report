@@ -1,0 +1,286 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+     <title>Work</title>
+     <style>
+       body{
+       padding-left: 10%;
+       padding-right: 10%;
+       }
+       #head{
+       width: 215px;
+       height: 25px;
+       }
+       #tab{
+       padding-bottom: 10%;
+       }
+       #monthday {
+       float: right;
+        float: button;
+       }
+       #monthday tr td {
+       width: 80px;
+       }
+       #monthday select {
+       width: 90px; 
+       }
+       #monthday tr td {
+       width: 94px; 
+       }
+       #monthday tr td input {
+       width: 94px; 
+       }
+       #right{
+       float: right;
+       }
+       #non{
+       width: 2px;
+       visibility: hidden ;       
+       }
+     </style>
+  </head> 
+  <body>
+  <center>
+    <table >
+    <tr>
+     <td> 
+    <% user=User.find_by_id(params["id"])
+       if !(user.records.empty?)    
+       userrecord=user.records.find(:first, :conditions=>{:month=>params["month"],
+                                                      :date=>params["date"],
+                                                      :year=>params["year"]})
+       if userrecord                                             
+     %>                                                      
+     <p><%= userrecord.date%>. <%= userrecord.month%>. <%= userrecord.year%></p>
+     <% else %>
+      
+     <p><%= params["date"]%>. <%= params["month"]%>. <%= params["year"]%></p>
+     <% end 
+     else %>
+     <%= Date.today.strftime('%d.%m.%Y') %>
+     <% end%>
+     <p></p>
+    Self-development:
+    <table border="1">
+     <thead>
+       <tr>
+         <th id="head">Project</th>
+         <th id="head">Activity</th>
+         <th id="head">Time</th>
+         
+      </tr>
+    </thead>
+    <tbody>
+      <% if !(user.records.empty?)
+      userrecord=user.records.find(:all, :conditions=>{:month=>params["month"],
+                                                      :date=>params["date"],
+                                                      :year=>params["year"],
+                                                      :timename=>"self"})
+      totalself=0
+      userrecord.each do |li|
+      totalself+=li.timework.to_i %>
+       <form action="/delete" method="post" accept-charset="utf-8">
+       <tr>
+       <td><%=li.project%><input type="text" id="non" name="project" value=<%=li.project%>>
+       <input type="text" id="non" name="id" value=<%=user.id%>></td>
+       <td><%= li.activity %><input type="text" id="non" name="activity" value=<%=li.activity%>>
+       <input type="text" id="non" name="date" value=<%=li.date%>>  </td>
+       <td><%= li.timework%><input type="text" id="non" name="timework" value=<%=li.timework %>> 
+       <input type="text" id="non" name="month" value=<%=li.month%>><input type="text" id="non" name="year" value=<%=li.year%>></td>
+       <td><input type="submit" value="delete"></td></tr></form>                                                   
+      <% end
+      end %>
+      </tbody>    
+   </table>
+  <p></p> 
+   Working time:
+   <table border="1">
+     <thead>
+       <tr>
+         <th id="head">Project</th>
+         <th id="head">Activity</th>
+         <th id="head">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !(user.records.empty?)
+      userrecord=user.records.find(:all, :conditions=>{:month=>params["month"],
+                                                      :date=>params["date"],
+                                                      :year=>params["year"],
+                                                      :timename=>"work"})
+      totalwork=0
+      userrecord.each do |li|
+      totalwork+=li.timework.to_i %>
+        <form action="/delete" method="post" accept-charset="utf-8">
+           <tr><td><%=li.project%><input type="text" id="non" name="project" value=<%=li.project%>><input type="text" id="non" name="id" value=<%=user.id%>></td>
+       <td><%= li.activity %><input type="text" id="non" name="activity" value=<%=li.activity%>><input type="text" id="non" name="date" value=<%=li.date%>>  </td>
+       <td><%= li.timework%><input type="text" id="non" name="timework" value=<%=li.timework %>> <input type="text" id="non" name="month" value=<%=li.month%>><input type="text" id="non" name="year" value=<%=li.year%>></td>
+       <td><input type="submit" value="delete"></td></tr></form>                                                   
+      <% end
+      end %>
+      </tbody>    
+   </table>
+   <p></p>
+   Extra time:
+   <table border="1">
+     <thead>
+       <tr>
+         <th id="head">Project</th>
+         <th id="head">Activity</th>
+         <th id="head">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !(user.records.empty?)
+       userrecord=user.records.find(:all, :conditions=>{:month=>params["month"],
+                                                      :date=>params["date"],
+                                                      :year=>params["year"],
+                                                      :timename=>"extra"})
+      totalextra=0
+      userrecord.each do |li|
+      totalextra+=li.timework.to_i%>
+        <form action="/delete" method="post" accept-charset="utf-8">
+           <tr><td><%=li.project%><input type="text" id="non" name="project" value=<%=li.project%>><input type="text" id="non" name="id" value=<%=user.id%>></td>
+       <td><%= li.activity %><input type="text" id="non" name="activity" value=<%=li.activity%>><input type="text" id="non" name="date" value=<%=li.date%>>  </td>
+       <td><%= li.timework%><input type="text" id="non" name="timework" value=<%=li.timework %>> <input type="text" id="non" name="month" value=<%=li.month%>><input type="text" id="non" name="year" value=<%=li.year%>></td>
+       <td><input type="submit" value="delete"></td></tr></form>                                                  
+      <% end
+      end  %>
+      </tbody>     
+   </table>
+   <p></p>
+   Team work:
+   <table border="1">
+     <thead>
+       <tr>
+         <th id="head">Project</th>
+         <th id="head">Activity</th>
+         <th id="head">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if !(user.records.empty?)
+       userrecord=user.records.find(:all, :conditions=>{:month=>params["month"],
+                                                      :date=>params["date"],
+                                                      :year=>params["year"],
+                                                      :timename=>"team"})
+      totalteam=0                                                
+      userrecord.each do |li|
+      totalteam+=li.timework.to_i %>
+        <form action="/delete" method="post" accept-charset="utf-8">
+           <tr><td><%=li.project%><input type="text" id="non" name="project" value=<%=li.project%>><input type="text" id="non" name="id" value=<%=user.id%>></td>
+       <td><%= li.activity %><input type="text" id="non" name="activity" value=<%=li.activity%>><input type="text" id="non" name="date" value=<%=li.date%>>  </td>
+       <td><%= li.timework%><input type="text" id="non" name="timework" value=<%=li.timework %>> <input type="text" id="non" name="month" value=<%=li.month%>><input type="text" id="non" name="year" value=<%=li.year%>></td>
+       <td><input type="submit" value="delete"></td></tr></form>                                                    
+      <% end
+      end %>
+      </tbody>     
+   </table>   
+  <span> <% if !(user.records.empty?) %>                           
+  <p>Totals for day:</p> 
+  Self-development:<%= totalself %>;
+   Working time:<%= totalwork %>;
+   Extra time:<%= totalextra %>;
+    Team work:<%= totalteam %>.
+    <% end %>
+  </span>
+  
+  
+  </td> 
+  <td>          
+  </td> 
+  <td>
+  
+  <table id="monthday">
+      <tr>
+          <td>Date  </td>
+          <td>Month</td>
+          <td>Year</td>
+      </tr>
+      <tr>
+         <form action="/newdate" method="post" accept-charset="utf-8">
+          <td><select name="date"> <% n=1%>
+          <option value=<%= Date.today.strftime('%d') %>><%= Date.today.strftime('%d') %> </option>
+            <% while !(n==32) 
+             if n<10
+             n="0"+n.to_s
+             end%>                           
+            <option value=<%= n %>><%= n %></option>
+             <% n=n.to_i+1 
+             end  %>          
+          </select> </td></td>
+          <td><select name="month"> <% n=1 %>
+           <option value=<%= Date.today.strftime('%m') %>><%= Date.today.strftime('%m') %>  </option>
+            <% while !(n==13) 
+             if n<10
+             n="0"+n.to_s
+             end%>
+            <option value=<%= n %>><%= n %></option>
+             <% n=n.to_i+1 
+             end  %>         
+          </select> </td>
+          <td><select name="year"> <% n=2006 %>
+          <option value=<%= Date.today.strftime('%Y') %> ><%= Date.today.strftime('%Y') %>  </option>
+          <% while !(n==2013) %>
+            <option value=<%= n %>><%= n %></option>
+             <% n+=1 
+             end %>         
+          </select> </td>
+       </tr>
+      <tr>
+       <td><input type="text" name="id" value="<%= params["id"] %>" id="non"></td>
+       <td><input type="submit" value="Go to"></td>
+        </form>
+      </tr>
+      <tr>
+        <td>
+        <form action="/addrecord" method="post" accept-charset="utf-8">
+        <input type="text" name="id" value="<%= params["id"] %>" id="non">
+        <input type="text" name="date" value="<%= params["date"] %>" id="non">
+        <input type="text" name="month" value="<%= params["month"] %>" id="non">
+        <input type="text" name="year" value="<%= params["year"] %>" id="non">            
+        </td>       
+        <td>         
+        <input type="submit" value="Add record">        
+        </form> 
+        </td> 
+      </tr>
+      <tr>      
+        <td>
+        <form action="/project" method="post" accept-charset="utf-8">        
+        <input type="text" name="id" value="<%= params["id"] %>" id="non">
+        <input type="text" name="date" value="<%= params["date"] %>" id="non">
+        <input type="text" name="month" value="<%= params["month"] %>" id="non">
+        <input type="text" name="year" value="<%= params["year"] %>" id="non"> 
+        </td>      
+        <td>        
+        <input type="submit" value="Add project"> </td>
+        </form>
+        </td>
+      </tr>
+      <tr>      
+        <td>
+        <form action="/monthview" method="post" accept-charset="utf-8">        
+        <input type="text" name="id" value="<%= params["id"] %>" id="non">
+        <input type="text" name="date" value="<%= params["date"] %>" id="non">        
+        <input type="text" name="month" value="<%= params["month"] %>" id="non">
+        <input type="text" name="year" value="<%= params["year"] %>" id="non"> 
+        </td>      
+        <td>        
+        <input type="submit" value="Month views"> </td>
+        </form>
+        </td>
+      </tr>
+     </table>
+    <p></p>
+  
+  </td>
+  </tr>  
+  </table>
+  </center>
+  <form action='/logout' method='get' id="monthday">
+       <input type="submit" value="Logout">
+        </form>
+  </body>
+</html>

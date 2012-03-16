@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+  <head>
+     <title>Monsh</title>
+     <style>
+      body{
+        padding-top: 5%;
+      }
+      fieldset {
+        width: 340px;
+        border: ridge 2px darkgreen;
+        line-height: 1.8em;
+       }
+      table tr td {
+        width: 150px; 
+      } 
+      #none{
+        width: 5px;
+        visibility: hidden;
+      }
+      
+     </style>
+     </title>
+  </head>
+  <body>
+       
+    <center>
+     <fieldset>
+     <p></p>
+      <% if (params["month"]=="") %> 
+      <%= Date.today.strftime('%m.%Y') %>
+      <% else %>  
+     <%= params["month"] %>. <%= params["year"]%>
+      <% end %>
+      <table >
+       <tr>
+         <td>Self-development</td> 
+         <td><%
+         user=User.find_by_id(params["id"]) 
+            totalmonth=user.records.find(:all , :conditions=>{
+            :month=>params["month"], :year=>params["year"], :timename=>"self"            
+            })
+            totalself=totalwork=totalextra=totalteam=0
+            totalmonth.each do |li|
+             totalself+=li.timework.to_i
+            end         
+         %>
+         <%= totalself%></td> 
+       </tr>
+       <tr>
+        <td>Working time</td> 
+        <td><%
+            totalmonth=user.records.find(:all , :conditions=>{
+            :month=>params["month"], :year=>params["year"], :timename=>"work"            
+            })
+            totalself=totalwork=totalextra=totalteam=0
+            totalmonth.each do |li|
+             totalwork+=li.timework.to_i
+            end         
+         %>
+         <%= totalwork %></td> 
+       </tr>
+       <tr>
+        <td>Extra time</td> 
+        <td><% 
+            totalmonth=user.records.find(:all , :conditions=>{
+            :month=>params["month"], :year=>params["year"], :timename=>"extra"            
+            })
+            totalmonth.each do |li|
+             totalextra+=li.timework.to_i
+            end         
+         %>
+         <%= totalextra %>
+         </td> 
+       </tr>
+       <tr>
+        <td>Team work</td> 
+        <td><%
+            totalmonth=user.records.find(:all , :conditions=>{
+            :month=>params["month"], :year=>params["year"], :timename=>"team"            
+            })
+            
+            totalmonth.each do |li|
+             totalteam+=li.timework.to_i
+            end         
+         %>
+         <%= totalteam %>
+         </td> 
+       </tr>
+        <tr>
+       </table>
+        <form action='/enter' method='post'>
+          <input type="text" name="id" value="<%= params["id"]%>" id="none">
+          <input type="text" name="date" value="<%= params["date"]%>" id="none">
+          <input type="submit" value="Came back" >
+          <input type="text" name="month" value="<%= params["month"]%>" id="none">
+          <input type="text" name="year" value="<%= params["year"]%>" id="none">
+           
+          </form>      
+     </fieldset>
+    </center>
+  </body>
+</html>
